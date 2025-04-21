@@ -1,6 +1,6 @@
 package com.devsuperior.aula.controllers;
 
-import com.devsuperior.aula.dto.PersonDepartmentDTO;
+import com.devsuperior.aula.dto.PersonDTO;
 import com.devsuperior.aula.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class PersonController {
     private PersonService service;
 
     @PostMapping
-    public ResponseEntity<PersonDepartmentDTO> insert(@RequestBody PersonDepartmentDTO dto){
+    public ResponseEntity<PersonDTO> insert(@RequestBody PersonDTO dto){
         dto=  service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();

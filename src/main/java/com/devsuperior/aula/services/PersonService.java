@@ -1,6 +1,6 @@
 package com.devsuperior.aula.services;
 
-import com.devsuperior.aula.dto.PersonDepartmentDTO;
+import com.devsuperior.aula.dto.PersonDTO;
 import com.devsuperior.aula.entities.Department;
 import com.devsuperior.aula.entities.Person;
 import com.devsuperior.aula.repositories.DepartmentRepository;
@@ -17,7 +17,7 @@ public class PersonService {
     @Autowired
     private DepartmentRepository departmentRepository;
 
-    public PersonDepartmentDTO insert (PersonDepartmentDTO dto){
+    public PersonDTO insert (PersonDTO dto){
         // Cria uma nova instância da entidade Person
         Person entity = new Person();
 
@@ -28,7 +28,7 @@ public class PersonService {
 
         // Obtém uma referência gerenciada (managed) do Department pelo ID.
         // Isso evita a criação de uma nova instância manual e permite que o JPA gerencie o ciclo de vida da entidade.
-        Department department = departmentRepository.getReferenceById(dto.getDepartment().getId());
+        Department department = departmentRepository.getReferenceById(dto.getDepartmentId());
 
 /*
     // Alternativa usando uma instância transient (não gerenciada pelo JPA)
@@ -37,7 +37,7 @@ public class PersonService {
     // se o ID não existir ou se o contexto exigir um estado managed da entidade.
 
     Department department = new Department();
-    department.setId(dto.getDepartment().getId());
+    department.setId(dto.getDepartmentId());
 */
         // Associa o Department à entidade Person
         entity.setDepartment(department);
@@ -46,7 +46,7 @@ public class PersonService {
         entity = repository.save(entity);
 
         // Retorna o DTO com os dados persistidos
-        return new PersonDepartmentDTO(entity);
+        return new PersonDTO(entity);
 
     }
 }
